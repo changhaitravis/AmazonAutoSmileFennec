@@ -86,10 +86,12 @@ Promise.resolve().then(() => {
  * modifying their "User-Agent"-header based on the current options
  */
 function requestListener(request) {
-	if(typeof(options["current"]) === "string") {
+	let useragent = getUserAgentForUrl(request.url);
+	
+	if(useragent === "string") {
 		for(var header of request.requestHeaders) {
 			if(header.name.toLowerCase() === "user-agent") {
-				header.value = options["current"];
+				header.value = useragent;
 			}
 		}
 	}
@@ -110,7 +112,9 @@ function requestListener(request) {
  * on the current options
  */
 function tabListener(tabId, changeInfo, tab) {
-	if(typeof(options["current"]) === "string" && changeInfo["status"] === "loading") {
+	let useragent = getUserAgentForUrl(request.url);
+	
+	if(typeof(useragent === "string" && changeInfo["status"] === "loading") {
 		browser.tabs.executeScript(tabId, {
 			"allFrames": true,
 			"runAt":     "document_start",
@@ -118,13 +122,24 @@ function tabListener(tabId, changeInfo, tab) {
 			"code": `void(
 				Object.defineProperty(window.navigator.wrappedJSObject, "userAgent", {
 					enumerable: true,
-					value:      decodeURIComponent("${encodeURIComponent(options["current"])}")
+					value:      decodeURIComponent("${encodeURIComponent(useragent)}")
 				})
 			)`
 		});
 	}
 }
 
+function getUserAgentForUrl(url){
+	let hostname = url.match(/^https?\:\/\/([^\/:?#]+)(?:[\/:?#]|$)/i)[1];
+	
+	while(!options["domains"][hostname] && hostname.indexOf(".") !== -1){
+		let domainParts = hostname.split(".");
+		domainParts.shift;
+		hostname = domainParts.join(".");
+	}
+	
+	returnoptions["domains"][hostname] || options["current"];
+}
 
 /********************************
  * Orchestration and GUI tweaks *

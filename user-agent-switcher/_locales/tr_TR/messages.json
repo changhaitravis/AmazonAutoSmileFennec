@@ -1,0 +1,21 @@
+{
+	"extension_description": {
+		"message": "Taraycı User-Agent yazısını etkisiz kıl"
+	},
+	
+	"options_entries_caption": {
+		"message": "User-Agent yazısı"
+	},
+	
+	"popup_item_options": {
+		"message": "Özellikler…"
+	},
+	
+	"icon_title_enabled": {
+		"message": "şuan çalışıyor"
+	},
+	
+	"icon_title_disabled": {
+		"message": "şuan çalışmıyor"
+	}
+}

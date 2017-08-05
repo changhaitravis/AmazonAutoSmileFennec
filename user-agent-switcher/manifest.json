@@ -1,0 +1,51 @@
+{
+	"manifest_version": 2,
+	"default_locale": "en",
+	
+	"name":        "User Agent Switcher",
+	"description": "__MSG_extension_description__",
+	
+	"version": "1.0.6",
+	"homepage_url": "https://gitlab.com/alexander255/user-agent-switcher",
+	"icons": {
+		"92": "assets/icon.svg"
+	},
+	
+	"applications": {
+		"gecko": {
+			"id": "user-agent-switcher@ninetailed.ninja",
+			"strict_min_version": "52.0"
+		}
+	},
+	
+	"permissions": [
+		"storage",
+		"webRequest",
+		"webRequestBlocking",
+		"http://*/*",
+		"https://*/*"
+	],
+	
+	"background": {
+		"scripts": [
+			"main.js",
+			"utils/config.js"
+		]
+	},
+	
+	"browser_action": {
+		"default_title": "User Agent Switcher"
+	},
+	
+	"page_action": {
+		"default_icon": "assets/icon.svg",
+		"default_title": "User Agent Switcher",
+		"default_popup": "content/popup.html",
+		"browser_style": true
+	},
+	
+	"options_ui": {
+		"page":          "content/options.html",
+		"browser_style": true
+	}
+}

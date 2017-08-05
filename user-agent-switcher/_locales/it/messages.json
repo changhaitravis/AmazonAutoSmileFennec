@@ -1,0 +1,21 @@
+{
+	"extension_description": {
+		"message": "Modifica la stringa User-Agent del browser"
+	},
+	
+	"options_entries_caption": {
+		"message": "Voci dello User-Agent"
+	},
+	
+	"popup_item_options": {
+		"message": "Preferenze…"
+	},
+	
+	"icon_title_enabled": {
+		"message": "in funzione"
+	},
+	
+	"icon_title_disabled": {
+		"message": "non in funzione"
+	}
+}

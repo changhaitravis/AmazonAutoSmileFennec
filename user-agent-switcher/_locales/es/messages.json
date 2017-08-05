@@ -1,0 +1,21 @@
+{
+	"extension_description": {
+		"message": "Sustituir al agente de usuario del navegador"
+	},
+	
+	"options_entries_caption": {
+		"message": "Agentes de usuario"
+	},
+	
+	"popup_item_options": {
+		"message": "Preferencias…"
+	},
+	
+	"icon_title_enabled": {
+		"message": "ahora operativo"
+	},
+	
+	"icon_title_disabled": {
+		"message": "ahora no operativo"
+	}
+}

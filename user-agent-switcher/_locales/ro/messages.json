@@ -1,0 +1,21 @@
+{
+	"extension_description": {
+		"message": "Înlocuiește șirul pentru Agent-Utilizator al navigatorului"
+	},
+	
+	"options_entries_caption": {
+		"message": "Înregistrări pentru Agent-Utilizator"
+	},
+	
+	"popup_item_options": {
+		"message": "Preferințe…"
+	},
+	
+	"icon_title_enabled": {
+		"message": "acum funcționează"
+	},
+	
+	"icon_title_disabled": {
+		"message": "acum nu funcționează"
+	}
+}

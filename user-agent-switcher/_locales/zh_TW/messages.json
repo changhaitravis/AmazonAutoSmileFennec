@@ -1,0 +1,29 @@
+{
+	"extension_description": {
+		"message": "修改瀏覽器的 User-Agent 字符串"
+	},
+	
+	"options_entries_caption": {
+		"message": "User-Agent 條目"
+	},
+	
+	"options_entries_reset": {
+		"message": "恢復到預設值"
+	},
+	
+	"icon_title_enabled": {
+		"message": "正在工作中"
+	},
+	
+	"icon_title_disabled": {
+		"message": "不在工作中"
+	},
+	
+	"popup_item_options": {
+		"message": "偏好設置…"
+	},
+	
+	"popup_item_default": {
+		"message": "預設"
+	}
+}

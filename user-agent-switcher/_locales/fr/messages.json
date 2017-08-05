@@ -1,0 +1,21 @@
+{
+	"extension_description": {
+		"message": "Outre passer la chaîne User-Agent du navigateur"
+	},
+	
+	"options_entries_caption": {
+		"message": "User-Agent entrées"
+	},
+	
+	"popup_item_options": {
+		"message": "Préférences…"
+	},
+	
+	"icon_title_enabled": {
+		"message": "Activé"
+	},
+	
+	"icon_title_disabled": {
+		"message": "Désactivé"
+	}
+}

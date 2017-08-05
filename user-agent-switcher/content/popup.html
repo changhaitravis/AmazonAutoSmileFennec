@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		
+		<!-- These style definitions would be provided by the browser because of the
+		     `"browser_style": true` manifest attribute, but Firefox for Android 55 rejects the
+		     extension as "broken" if that attribute is added -->
+		<link rel="stylesheet" type="text/css" href="chrome://browser/content/extension.css" />
+		<link rel="stylesheet" type="text/css" href="chrome://browser/content/extension-mac.css" />
+		
+		<style type="text/css">
+html, body {
+	/* Work around text being invisible on dark themes */
+	color: menutext;
+	
+	/* Prevent text from being selected as if this was a web page */
+	-moz-user-select: none;
+	cursor: default;
+}
+
+/* Better preferences item with the other radio button items */
+#panel-item-preferences {
+	margin-left: 6px;
+}
+		</style>
+		
+		<script type="text/javascript" src="../utils/l10n.js"></script>
+		<script type="text/javascript" src="popup.js"></script>
+	</head>
+	
+	<body>
+		<div class="panel">
+			<section class="panel-section panel-section-list" id="agent-list">
+				<div class="panel-list-item" id="panel-item-preferences">
+					<span class="text" data-l10n-id="popup_item_options"></span>
+				</div>
+				<!-- Domain Manager START -->
+				<label for="selectDomain">Domain:</label>
+				<select name="selectDomain">
+					<option value="">Default</option>
+				</select>
+				<button id="removeDomain" disabled="disabled">Remove</button>
+				<input name="newDomain" type="text" placeholder="google.com" /><button id="addNewDomain">+</button>
+				<!-- Domain Manager END -->
+				
+				<hr class="panel-section-separator" />
+				
+				<div class="panel-list-item">
+					<input type="radio" name="current" id="ua_default" checked />
+					<label for="ua_default" class="text" data-l10n-id="popup_item_default"></label>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>

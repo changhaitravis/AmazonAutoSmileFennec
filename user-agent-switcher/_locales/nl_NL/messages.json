@@ -1,0 +1,29 @@
+{
+	"extension_description": {
+		"message": "Gebruikersagent-string van browser overschrijven"
+	},
+	
+	"options_entries_caption": {
+		"message": "Gebruikersagent-items"
+	},
+	
+	"options_entries_reset": {
+		"message": "Herstellen naar standaardwaarde"
+	},
+	
+	"popup_item_options": {
+		"message": "Voorkeuren…"
+	},
+	
+	"popup_item_default": {
+		"message": "Standaard"
+	},
+	
+	"icon_title_enabled": {
+		"message": "werkt nu"
+	},
+	
+	"icon_title_disabled": {
+		"message": "werkt nu niet"
+	}
+}

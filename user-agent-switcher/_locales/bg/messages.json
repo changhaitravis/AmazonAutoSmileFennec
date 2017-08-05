@@ -1,0 +1,21 @@
+{
+	"extension_description": {
+		"message": "Подмяна на User-Agent на браузъра"
+	},
+	
+	"options_entries_caption": {
+		"message": "User-Agent записи"
+	},
+	
+	"popup_item_options": {
+		"message": "Предпочитания…"
+	},
+	
+	"icon_title_enabled": {
+		"message": "е включен"
+	},
+	
+	"icon_title_disabled": {
+		"message": "е изключен"
+	}
+}

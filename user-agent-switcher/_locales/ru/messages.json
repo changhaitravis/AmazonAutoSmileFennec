@@ -1,0 +1,21 @@
+{
+	"extension_description": {
+		"message": "Переопределить строку User-Agent в браузере"
+	},
+	
+	"options_entries_caption": {
+		"message": "User-Agent варианты"
+	},
+	
+	"popup_item_options": {
+		"message": "Настройки…"
+	},
+	
+	"icon_title_enabled": {
+		"message": "сейчас включено"
+	},
+	
+	"icon_title_disabled": {
+		"message": "сейчас выключено"
+	}
+}

@@ -1,0 +1,59 @@
+{
+	"extension_description": {
+		"message": "Inhalt des User-Agent-Headers ändern"
+	},
+	
+	
+	
+	"options_entries_caption": {
+		"message": "User-Agent Einträge"
+	},
+	
+	"options_entries_reset": {
+		"message": "Auf Standard-Werte zurücksetzten"
+	},
+	
+	"options_entries_reset_undo_text": {
+		"message": "Standard-Werte wiederhergestellt"
+	},
+	
+	"options_entries_reset_undo_button": {
+		"message": "Zurücksetzten rückgängig machen"
+	},
+	
+	"options_entries_switch_text": {
+		"message": "Zu Text-Modus wechseln"
+	},
+	
+	"options_entries_switch_table": {
+		"message": "Zu Tabellen-Modus wechseln"
+	},
+	
+	"options_entries_heading_label": {
+		"message": "Name"
+	},
+	
+	"options_entries_heading_string": {
+		"message": "Wert"
+	},
+	
+	
+	
+	"icon_title_enabled": {
+		"message": "Aktiviert"
+	},
+	
+	"icon_title_disabled": {
+		"message": "Deaktiviert"
+	},
+	
+	
+	
+	"popup_item_options": {
+		"message": "Einstellungen…"
+	},
+	
+	"popup_item_default": {
+		"message": "Unverändert"
+	}
+}

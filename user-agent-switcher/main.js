@@ -114,7 +114,7 @@ function requestListener(request) {
 function tabListener(tabId, changeInfo, tab) {
 	let useragent = getUserAgentForUrl(request.url);
 	
-	if(typeof(useragent === "string" && changeInfo["status"] === "loading") {
+	if(typeof(useragent === "string") && changeInfo["status"] === "loading") {
 		browser.tabs.executeScript(tabId, {
 			"allFrames": true,
 			"runAt":     "document_start",
@@ -134,11 +134,11 @@ function getUserAgentForUrl(url){
 	
 	while(!options["domains"][hostname] && hostname.indexOf(".") !== -1){
 		let domainParts = hostname.split(".");
-		domainParts.shift;
+		domainParts.shift();
 		hostname = domainParts.join(".");
 	}
 	
-	returnoptions["domains"][hostname] || options["current"];
+	return options["domains"][hostname] || options["current"];
 }
 
 /********************************

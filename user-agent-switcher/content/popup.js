@@ -21,6 +21,8 @@ var currentDomain;
 browser.storage.local.get(["current", "domains", "available"]).then(({current, domains, available: entries}) => {
 	
 	domains = domains || {};
+        
+        console.log(domains);
 	
 	document.getElementById("panel-item-preferences").addEventListener("click", (event) => {
 		//COMPAT: Firefox for Android
@@ -36,42 +38,74 @@ browser.storage.local.get(["current", "domains", "available"]).then(({current, d
 	});
 	
 	//Domain Select Change Handler
-	var domainSelector = document.getElementbyName("selectDomain");
-	var domainRemoveButton = document.getElementById("removeDomain");
+	var domainSelector = document.getElementsByName("selectDomain")[0];
+        var domainRemoveButton = document.getElementById("removeDomain");
+        
+        currentDomain = domainSelector.value
+        
+        for (let domain in domains)
+        {
+            if(typeof domain === "string"){
+                let option = document.createElement("option");
+                option.text = domain;
+                option.value = domain;
+                domainSelector.add(option);
+            }
+        }
+        
+	
 	domainSelector.addEventListener("change", function() {
-		if(!domainSelector.value){
-			domainRemoveButton.setAttribute("disabled", "disabled");
-		}else{
-			domainRemoveButton.removeAttribute("disabled");
-			currentDomain = domainSelector.value;
-		}
+            currentDomain = domainSelector.value;
+            var toCheck;
+            if(!currentDomain){
+                domainRemoveButton.setAttribute("disabled", "disabled");
+                console.log(current);
+                toCheck = document.querySelector("[data-string='" + current + "']") || document.getElementById('ua_default');
+            }else{
+                domainRemoveButton.removeAttribute("disabled");
+                toCheck = document.querySelector("[data-string='" + domains[currentDomain] + "']") || document.getElementById('ua_default');
+            }
+            toCheck.checked = true;
 	});
 	
 	//Remove button
 	domainRemoveButton.addEventListener("click", (event) => {
-		console.log("we're in!");
+            delete domains[currentDomain];
+            browser.storage.local.set({
+                "domains" : domains
+            }).then(() => {
+                domainSelector.remove(domainSelector.selectedIndex);
+                domainSelector.dispatchEvent(new Event("change"));
+            });
 	});
 	
 	//+ Button
 	document.getElementById("addNewDomain").addEventListener("click", (event) => {
-		domains[document.getElementByName("newDomain")] = current
-		browser.storage.local.set({
-			"domains" : domains
-		})
+            let newDomain = document.getElementsByName("newDomain")[0].value.toLowerCase();
+            if(newDomain && typeof newDomain === 'string'){
+                domains[newDomain] = current;
+                let option = document.createElement("option");
+                option.text = newDomain;
+                option.value = newDomain;
+                domainSelector.add(option);
+                domainSelector.value = newDomain;
+                browser.storage.local.set({
+                    "domains" : domains
+                });
+                domainSelector.dispatchEvent(new Event("change"));
+            }
 	});
 	
 	document.getElementById("ua_default").addEventListener("change", (event) => {
 		// Special "Default" item selected
-		browser.storage.local.set({
-			"current": null
-		}).then(window.close, console.exception);
+		setUA(null);
 	});
 	
 	let index = 1;
 	let DOMAgentList = document.getElementById("agent-list");
 	for(let entry of entries) {
 		if(entry.type !== "user-agent") {
-			continue;
+                    continue;
 		}
 		
 		let { label, string } = entry;
@@ -82,7 +116,7 @@ browser.storage.local.get(["current", "domains", "available"]).then(({current, d
 		DOMAgentRadio.type    = "radio";
 		DOMAgentRadio.name    = "current";
 		DOMAgentRadio.id      = `ua${index}`;
-		DOMAgentRadio.checked = (string === current);
+		DOMAgentRadio.checked = (string === domains[currentDomain] || string === current);
 		DOMAgentRadio.dataset["string"] = string;
 		DOMAgentItem.appendChild(DOMAgentRadio);
 		
@@ -95,13 +129,25 @@ browser.storage.local.get(["current", "domains", "available"]).then(({current, d
 		DOMAgentList.appendChild(DOMAgentItem);
 		
 		DOMAgentRadio.addEventListener("change", (event) => {
-			// Radio button with User-Agent selected (possibly through its label)
-			current = event.target.dataset["string"];
-			browser.storage.local.set({
-				"current": current
-			}).then(window.close, console.exception);
+                    // Radio button with User-Agent selected (possibly through its label)
+                    setUA(event.target.dataset["string"]);
 		});
 		
 		index++;
 	}
+	
+	function setUA(uaString){
+            if(currentDomain){
+                domains[currentDomain] = uaString;
+                browser.storage.local.set({
+                    "domains": domains
+                }).then(window.close, console.exception);
+            }else{
+                current = uaString;
+                browser.storage.local.set({
+                    "current": current
+                }).then(window.close, console.exception);
+            }
+        }
+	
 }, console.exception);

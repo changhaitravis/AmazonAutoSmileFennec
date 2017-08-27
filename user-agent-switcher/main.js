@@ -69,7 +69,7 @@ Promise.resolve().then(() => {
 	});
 	
 	// (Possibly) enable the request listener already
-	updateProcessingStatus(typeof(options["current"]) === "string");
+	updateProcessingStatus(typeof(options["current"]) === "string" || Object.keys(options["domains"]).length > 0);
 	updateUserInterface(options["current"]);
 	
 	// Done setting up options
@@ -87,11 +87,12 @@ Promise.resolve().then(() => {
  */
 function requestListener(request) {
 	let useragent = getUserAgentForUrl(request.url);
-	
-	if(useragent === "string") {
+        
+	if(typeof useragent === "string") {
 		for(var header of request.requestHeaders) {
 			if(header.name.toLowerCase() === "user-agent") {
 				header.value = useragent;
+                                //console.log("requestListener using: " + useragent + " for " + request.url);
 			}
 		}
 	}
@@ -112,13 +113,13 @@ function requestListener(request) {
  * on the current options
  */
 function tabListener(tabId, changeInfo, tab) {
-	let useragent = getUserAgentForUrl(request.url);
-	
+	let useragent = getUserAgentForUrl(tab.url);
+        
 	if(typeof(useragent === "string") && changeInfo["status"] === "loading") {
+                //console.log("tabListener using: " + useragent + " for " + tab.url);
 		browser.tabs.executeScript(tabId, {
 			"allFrames": true,
 			"runAt":     "document_start",
-			
 			"code": `void(
 				Object.defineProperty(window.navigator.wrappedJSObject, "userAgent", {
 					enumerable: true,
@@ -130,8 +131,7 @@ function tabListener(tabId, changeInfo, tab) {
 }
 
 function getUserAgentForUrl(url){
-	let hostname = url.match(/^https?\:\/\/([^\/:?#]+)(?:[\/:?#]|$)/i)[1];
-	
+	let hostname = url.match(/^https?\:\/\/([^\/:?#]+)(?:[\/:?#]|$)/i)[1] || "";
 	while(!options["domains"][hostname] && hostname.indexOf(".") !== -1){
 		let domainParts = hostname.split(".");
 		domainParts.shift();
@@ -231,9 +231,9 @@ function updateProcessingStatus(enable) {
 	if(!processingEnabled && enable) {
 		processingEnabled = true;
 		browser.webRequest.onBeforeSendHeaders.addListener(
-			requestListener,
-			{urls: ["<all_urls>"]},
-			["blocking", "requestHeaders"]
+                    requestListener,
+                    {urls: ["<all_urls>"]},
+                    ["blocking", "requestHeaders"]
 		);
 		browser.tabs.onUpdated.addListener(tabListener);
 	} else if(processingEnabled && !enable) {
@@ -246,10 +246,14 @@ function updateProcessingStatus(enable) {
 // Monitor options for changes to the request processing setting
 browser.storage.onChanged.addListener((changes, areaName) => {
 	for(let name of Object.keys(changes)) {
-		if(areaName === "local" && name === "current") {
-			updateProcessingStatus(typeof(changes[name].newValue) === "string");
-			updateUserInterface(changes[name].newValue);
-		}
+            if(areaName === "local") {
+                if(name === "current" || name === "domains"){
+                    updateProcessingStatus(typeof(changes[name].newValue) === "string");
+                }
+                if(name === "current"){
+                    updateUserInterface(changes[name].newValue);
+                }
+            }
 	}
 });
 

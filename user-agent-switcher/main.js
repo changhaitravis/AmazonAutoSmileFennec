@@ -69,7 +69,7 @@ Promise.resolve().then(() => {
 	});
 	
 	// (Possibly) enable the request listener already
-	updateProcessingStatus(typeof(options["current"]) === "string" || Object.keys(options["domains"]).length > 0);
+	updateProcessingStatus(Object.keys(options["domains"]).length > 0 || typeof(options["current"]) === "string");
 	updateUserInterface(options["current"]);
 	
 	// Done setting up options
@@ -246,13 +246,8 @@ function updateProcessingStatus(enable) {
 // Monitor options for changes to the request processing setting
 browser.storage.onChanged.addListener((changes, areaName) => {
 	for(let name of Object.keys(changes)) {
-            if(areaName === "local") {
-                if(name === "current" || name === "domains"){
-                    updateProcessingStatus(typeof(changes[name].newValue) === "string");
-                }
-                if(name === "current"){
-                    updateUserInterface(changes[name].newValue);
-                }
+            if(areaName === "local" && name === "current") {
+                updateUserInterface(changes[name].newValue);
             }
 	}
 });
